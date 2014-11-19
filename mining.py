@@ -11,7 +11,6 @@ __license__ = "MIT License"
 __status__ = "Prototype"
 
 # imports one per line
-import json
 import datetime
 
 stock_data = []
@@ -30,9 +29,5 @@ def six_worst_months():
     return [('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0)]
 
 
-def read_json_from_file(file_name):
-    with open(file_name) as file_handle:
-        file_contents = file_handle.read()
 
-    return json.loads(file_contents)
 
