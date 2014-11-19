@@ -47,6 +47,7 @@ class StockMiner:
             else:
                 self.monthly_averages[stock_year_month] = ((day["Volume"] * day["Close"]), day["Volume"])
 
-       #for year_month, sales_and_volume in self.monthly_averages.items():
+        for year_month, sales_and_volume in self.monthly_averages.items():
+            self.monthly_averages[year_month] = float("%.2f" % float(sales_and_volume[0]/sales_and_volume[1]))
 
         return
