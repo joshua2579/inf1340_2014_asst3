@@ -45,9 +45,12 @@ def test_files():
     with pytest.raises(FileNotFoundError):
         read_stock_data("GOOG", "data/LOLZ.json")
 
+
 def test_no_volume():
     with pytest.raises(ValueError):
         read_stock_data("NoV", "data/volume_is_missing.json")
+
+
 def test_missing_date():
     with pytest.raises(ValueError):
         read_stock_data("dateic", "data/date_is_corrupt.json")

@@ -36,19 +36,25 @@ class StockMiner:
         stock_info = self.read_json_from_file()
         for day in stock_info:
             #Parse date into list of 3 strings for Year, Month, Day.
-            if ("Date" in day):
+            if "Date" in day:
                 stock_date_split = day["Date"].split("-")
                 stock_year_month = stock_date_split[0]+"/"+stock_date_split[1]
             else:
                 raise ValueError("Date is missing from the JSON file")
 
-            if stock_year_month in self.monthly_averages:
-                total_sales = self.monthly_averages[stock_year_month][0]
-                total_volume = self.monthly_averages[stock_year_month][1]
-                self.monthly_averages[stock_year_month] = \
-                    (total_sales + day["Volume"]*day["Close"], total_volume + day["Volume"])
+            if "Close" in day:
+                if "Volume" in day:
+                    if stock_year_month in self.monthly_averages:
+                        total_sales = self.monthly_averages[stock_year_month][0]
+                        total_volume = self.monthly_averages[stock_year_month][1]
+                        self.monthly_averages[stock_year_month] = \
+                                    (total_sales + day["Volume"]*day["Close"], total_volume + day["Volume"])
+                    else:
+                        self.monthly_averages[stock_year_month] = ((day["Volume"] * day["Close"]), day["Volume"])
+                else:
+                    raise ValueError("Volume is missing from the JSON file")
             else:
-                self.monthly_averages[stock_year_month] = ((day["Volume"] * day["Close"]), day["Volume"])
+                raise ValueError("Close is missing from the JSON file")
 
         for year_month, sales_and_volume in self.monthly_averages.items():
             self.monthly_averages[year_month] = float("%.2f" % float(sales_and_volume[0]/sales_and_volume[1]))
