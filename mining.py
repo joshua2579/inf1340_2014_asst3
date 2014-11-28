@@ -11,7 +11,6 @@ __license__ = "MIT License"
 __status__ = "Prototype"
 
 # imports one per line
-import datetime
 from StockMiner import StockMiner
 
 
@@ -25,7 +24,7 @@ def read_stock_data(stock_name, stock_file_name):
 
     global stock
     stock = StockMiner(stock_name, stock_file_name)
-    stock.monthly_averages()
+    stock.month_averages()
 
 
 def six_months(sort_order):
@@ -36,7 +35,7 @@ def six_months(sort_order):
     """
 
     results = []
-    list_averages = []
+    list_of_averages = []
     if sort_order == "descending":
         sort_order = False
     elif sort_order == "ascending":
@@ -45,15 +44,21 @@ def six_months(sort_order):
         raise ValueError("Unexpected sort order.")
 
     for sales_average in stock.monthly_averages.values():
-        list_averages.append(sales_average)
-    list_averages.sort(reverse=sort_order)
+        list_of_averages.append(sales_average)
+    list_of_averages.sort(reverse=sort_order)
+    for this_average in list_of_averages[:6]:
+        for year_month, sales_average in stock.monthly_averages.items():
+            if this_average == sales_average:
+                results.append((year_month, sales_average))
+    return results
+
 
 def six_best_months():
-    return [('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0)]
+    return six_months("ascending")
 
 
 def six_worst_months():
-    return [('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0), ('', 0.0)]
+    return six_months("descending")
 
 
 

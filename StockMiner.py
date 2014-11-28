@@ -28,7 +28,7 @@ class StockMiner:
 
         return json.loads(file_contents)
 
-    def monthly_averages(self):
+    def month_averages(self):
         """
 
         :return:
