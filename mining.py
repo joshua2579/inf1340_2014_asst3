@@ -13,7 +13,6 @@ __status__ = "Prototype"
 # imports one per line
 from StockMiner import StockMiner
 
-
 def read_stock_data(stock_name, stock_file_name):
     """
 

@@ -2,6 +2,7 @@ __author__ = 'Alex Goel, Joshua Liben, Kristina Mitova'
 
 
 import json
+import datetime
 
 
 class StockMiner:
@@ -18,6 +19,18 @@ class StockMiner:
         self.name = name
         self.stock_file_name = stock_file_name
         self.monthly_averages = {}
+
+    def valid_date_format(date_string):
+        """
+        Checks whether a date has the format YYYY-mm-dd in numbers
+        :param date_string: date to be checked
+        :return: Boolean True if the format is valid, False otherwise
+        """
+        try:
+            datetime.datetime.strptime(date_string, '%Y-%m-%d')
+            return True
+        except ValueError:
+            return False
 
     def read_json_from_file(self):
         try:
@@ -37,8 +50,11 @@ class StockMiner:
         for day in stock_info:
             #Parse date into list of 3 strings for Year, Month, Day.
             if "Date" in day:
-                stock_date_split = day["Date"].split("-")
-                stock_year_month = stock_date_split[0]+"/"+stock_date_split[1]
+                if self.valid_date_format(day["Date"]):
+                    stock_date_split = day["Date"].split("-")
+                    stock_year_month = stock_date_split[0]+"/"+stock_date_split[1]
+                else:
+                    raise ValueError("Date is incorrect format")
             else:
                 raise ValueError("Date is missing from the JSON file")
 
