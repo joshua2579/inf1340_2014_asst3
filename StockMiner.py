@@ -36,8 +36,11 @@ class StockMiner:
         stock_info = self.read_json_from_file()
         for day in stock_info:
             #Parse date into list of 3 strings for Year, Month, Day.
-            stock_date_split = day["Date"].split("-")
-            stock_year_month = stock_date_split[0]+"/"+stock_date_split[1]
+            if ("Date" in day):
+                stock_date_split = day["Date"].split("-")
+                stock_year_month = stock_date_split[0]+"/"+stock_date_split[1]
+            else:
+                raise ValueError("Date is missing from the JSON file")
 
             if stock_year_month in self.monthly_averages:
                 total_sales = self.monthly_averages[stock_year_month][0]
