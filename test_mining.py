@@ -53,7 +53,7 @@ def test_no_volume():
 
 def test_missing_date():
     with pytest.raises(ValueError):
-        read_stock_data("dateic", "data/date_is_corrupt.json")
+        read_stock_data("dateic", "data/date_is_missing.json")
 
 
 def test_close_missing():
@@ -62,7 +62,4 @@ def test_close_missing():
 
 def test_bad_date_format():
     with pytest.raises(ValueError):
-        read_stock_data("bad_date", "data/date_is_incorrect")
-        
-
-
+        read_stock_data("bad_date", "data/date_is_incorrect.json")

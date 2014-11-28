@@ -20,7 +20,7 @@ class StockMiner:
         self.stock_file_name = stock_file_name
         self.monthly_averages = {}
 
-    def valid_date_format(date_string):
+    def valid_date_format(self, date_string):
         """
         Checks whether a date has the format YYYY-mm-dd in numbers
         :param date_string: date to be checked
