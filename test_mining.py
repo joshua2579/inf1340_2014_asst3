@@ -48,3 +48,11 @@ def test_files():
 def test_missing_date():
     with pytest.raises(ValueError):
         read_stock_data("dateic", "data/date_is_corrupt.json")
+
+def test_close_missing():
+    read_stock_data("cis", "data/close_missing.json")
+    assert six_best_months() == [('2008/09', 449.15), ('2008/12', 442.93), ('2008/10', 439.08),
+                                 ('2008/08', 433.86), ('2008/11', 414.49)]
+    assert six_worst_months() == [('2008/11', 414.49), ('2008/08', 433.86), ('2008/10', 439.08),
+                                  ('2008/12', 442.93), ('2008/09', 449.15)]
+
