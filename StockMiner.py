@@ -24,7 +24,7 @@ class StockMiner:
             with open(self.stock_file_name) as file_handle:
                 file_contents = file_handle.read()
         except FileNotFoundError:
-            return FileNotFoundError("Cannot find file:" + self.stock_file_name)
+            raise FileNotFoundError("Cannot find file:" + self.stock_file_name)
 
         return json.loads(file_contents)
 
