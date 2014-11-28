@@ -60,6 +60,20 @@ def test_close_missing():
     with pytest.raises(ValueError):
         read_stock_data("cis", "data/close_missing.json")
 
+def test_data_corrupt():
+    with pytest.raises(ValueError):
+        read_stock_data("dcorrupt", "data/data_is_corrupt.json")
+
 def test_bad_date_format():
     with pytest.raises(ValueError):
-        read_stock_data("bad_date", "data/date_is_incorrect.json")
+        read_stock_data("bad_date", "data/date_is_incorrect.json")        read_stock_data("bad_date", "data/date_is_incorrect")
+
+
+def test_dates_not_ascending():
+    read_stock_data("dna", "data/dates_not_ascending.json")
+    assert six_best_months() == [('2007/12', 693.76), ('2007/11', 676.55), ('2007/10', 637.38), ('2008/01', 599.42),
+                                 ('2008/05', 576.29), ('2008/06', 555.34)]
+    assert six_worst_months() == [('2004/08', 104.66), ('2004/09', 116.38), ('2004/10', 164.52), ('2004/11', 177.09),
+                                  ('2004/12', 181.01), ('2005/03', 181.18)]
+
+
