@@ -52,8 +52,10 @@ def test_missing_date():
     with pytest.raises(ValueError):
         read_stock_data("dateic", "data/date_is_corrupt.json")
 
+
 def test_close_missing():
     with pytest.raises(ValueError):
         read_stock_data("cis", "data/close_missing.json")
         
+
 
