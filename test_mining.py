@@ -12,10 +12,9 @@ __status__ = "Prototype"
 
 # imports one per line
 from mining import *
+import pytest
 
 # Tests to add:
-# Make sure TSE-SO outputs correct best and worst
-# What happens when there are less than six months?
 # What if there is a tie for the sixth ****st month? (show most recent one or something)
 #
 
@@ -26,4 +25,23 @@ def test_goog():
                                  ('2008/05', 576.29), ('2008/06', 555.34)]
     assert six_worst_months() == [('2004/08', 104.66), ('2004/09', 116.38), ('2004/10', 164.52), ('2004/11', 177.09),
                                    ('2004/12', 181.01), ('2005/03', 181.18)]
+
+def test_tseso():
+    read_stock_data("TSE-SO", "data/TSE-SO.json")
+    assert six_best_months() == [('2007/12', 20.98), ('2007/11', 20.89), ('2013/05', 19.96), ('2013/06', 19.94),
+                                 ('2013/04', 19.65), ('2007/10', 19.11)]
+    assert six_worst_months() == [('2009/03', 1.74), ('2008/11', 2.08), ('2008/12', 2.25), ('2009/02', 2.41),
+                                  ('2009/04', 2.75), ('2009/01', 3.14)]
+
+def test_less_than_five():
+    read_stock_data("lt5", "data/only_five_months.json")
+    assert six_best_months() == [('2008/09', 449.15), ('2008/12', 442.93), ('2008/10', 439.08),
+                                 ('2008/08', 433.86), ('2008/11', 414.49)]
+    assert six_worst_months() == [('2008/11', 414.49), ('2008/08', 433.86), ('2008/10', 439.08),
+                                  ('2008/12', 442.93), ('2008/09', 449.15)]
+
+
+def test_files():
+    with pytest.raises(FileNotFoundError):
+        read_stock_data("GOOG", "data/LOLZ.json")
 
