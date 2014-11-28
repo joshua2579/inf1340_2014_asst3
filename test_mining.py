@@ -63,6 +63,10 @@ def test_close_missing():
 def test_data_corrupt():
     with pytest.raises(ValueError):
         read_stock_data("dcorrupt", "data/data_is_corrupt.json")
+
+def test_bad_date_format():
+    with pytest.raises(ValueError):
+        read_stock_data("bad_date", "data/date_is_incorrect")
         
 
 
