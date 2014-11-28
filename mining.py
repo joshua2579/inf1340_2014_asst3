@@ -60,7 +60,7 @@ def six_best_months():
 def six_worst_months():
     return six_months("descending")
 
-read_stock_data("TSE-SO", "data/only_five_months.json")
+read_stock_data("cis", "data/close_missing.json")
 print(six_months("ascending"))
 print(six_months("descending"))
 
