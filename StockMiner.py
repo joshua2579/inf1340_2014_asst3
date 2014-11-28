@@ -38,6 +38,8 @@ class StockMiner:
                 file_contents = file_handle.read()
         except FileNotFoundError:
             raise FileNotFoundError("Cannot find file:" + self.stock_file_name)
+        except ValueError:
+            raise ValueError("File format is incorrect.")
 
         return json.loads(file_contents)
 
