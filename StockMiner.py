@@ -7,14 +7,14 @@ import datetime
 
 class StockMiner:
     """
-
+    This class creates a stockminer object that is used to calculate the monthly averages of a stock file.
     """
     def __init__(self, name, stock_file_name):
         """
-
-        :param name:
-        :param stock_file_name:
-        :return:
+        Initializes the stockminer object
+        :param name: The name of the stock
+        :param stock_file_name: The filepath of the stock information
+        :return: A stockminer Object
         """
         self.name = name
         self.stock_file_name = stock_file_name
@@ -33,6 +33,10 @@ class StockMiner:
             return False
 
     def read_json_from_file(self):
+        """
+        Reads the contents of the JSON file
+        :return: The loaded JSON object
+        """
         try:
             with open(self.stock_file_name) as file_handle:
                 file_contents = file_handle.read()
@@ -45,8 +49,8 @@ class StockMiner:
 
     def month_averages(self):
         """
-
-        :return:
+        Calculates the monthly averages for the JSON file object.
+        :return: A dictionary of key: month to value: average.
         """
         stock_info = self.read_json_from_file()
         for day in stock_info:
@@ -59,7 +63,8 @@ class StockMiner:
                     raise ValueError("Date is incorrect format")
             else:
                 raise ValueError("Date is missing from the JSON file")
-
+            
+            # Update an existing month in the dictionary
             if "Close" in day:
                 if "Volume" in day:
                     if stock_year_month in self.monthly_averages:
