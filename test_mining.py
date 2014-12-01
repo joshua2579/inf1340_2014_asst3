@@ -14,10 +14,9 @@ __status__ = "Prototype"
 from mining import *
 import pytest
 
-# Tests to add:
-# What if there is a tie for the sixth ****st month? (show most recent one or something)
-#
-
+"""
+File tests the Stockminer functions.
+"""
 
 def test_goog():
     """
