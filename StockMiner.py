@@ -1,6 +1,5 @@
 __author__ = 'Alex Goel, Joshua Liben, Kristina Mitova'
 
-
 import json
 import datetime
 
@@ -9,6 +8,7 @@ class StockMiner:
     """
     This class creates a stockminer object that is used to calculate the monthly averages of a stock file.
     """
+
     def __init__(self, name, stock_file_name):
         """
         Initializes the stockminer object
@@ -54,16 +54,16 @@ class StockMiner:
         """
         stock_info = self.read_json_from_file()
         for day in stock_info:
-            #Parse date into list of 3 strings for Year, Month, Day.
+            # Parse date into list of 3 strings for Year, Month, Day.
             if "Date" in day:
                 if self.valid_date_format(day["Date"]):
                     stock_date_split = day["Date"].split("-")
-                    stock_year_month = stock_date_split[0]+"/"+stock_date_split[1]
+                    stock_year_month = stock_date_split[0] + "/" + stock_date_split[1]
                 else:
                     raise ValueError("Date is incorrect format")
             else:
                 raise ValueError("Date is missing from the JSON file")
-            
+
             # Update an existing month in the dictionary
             if "Close" in day:
                 if "Volume" in day:
@@ -71,7 +71,7 @@ class StockMiner:
                         total_sales = self.monthly_averages[stock_year_month][0]
                         total_volume = self.monthly_averages[stock_year_month][1]
                         self.monthly_averages[stock_year_month] = \
-                                    (total_sales + day["Volume"]*day["Close"], total_volume + day["Volume"])
+                            (total_sales + day["Volume"] * day["Close"], total_volume + day["Volume"])
                     else:
                         self.monthly_averages[stock_year_month] = ((day["Volume"] * day["Close"]), day["Volume"])
                 else:
@@ -79,7 +79,7 @@ class StockMiner:
             else:
                 raise ValueError("Close is missing from the JSON file")
 
+        # Calculate the averages based on sales and volume and convert to two decimal float.
         for year_month, sales_and_volume in self.monthly_averages.items():
-            self.monthly_averages[year_month] = float("%.2f" % float(sales_and_volume[0]/sales_and_volume[1]))
-
+            self.monthly_averages[year_month] = float("%.2f" % float(sales_and_volume[0] / sales_and_volume[1]))
         return
