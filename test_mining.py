@@ -12,6 +12,7 @@ import pytest
 File tests the Stockminer functions.
 """
 
+
 def test_goog():
     """
     Tests if code works with Google stock data
@@ -21,7 +22,7 @@ def test_goog():
     assert six_best_months() == [('2007/12', 693.76), ('2007/11', 676.55), ('2007/10', 637.38), ('2008/01', 599.42),
                                  ('2008/05', 576.29), ('2008/06', 555.34)]
     assert six_worst_months() == [('2004/08', 104.66), ('2004/09', 116.38), ('2004/10', 164.52), ('2004/11', 177.09),
-                                   ('2004/12', 181.01), ('2005/03', 181.18)]
+                                  ('2004/12', 181.01), ('2005/03', 181.18)]
 
 
 def test_tseso():
@@ -112,5 +113,3 @@ def test_bad_date_format():
     """
     with pytest.raises(ValueError):
         read_stock_data("bad_date", "data/date_is_incorrect.json")
-
-
